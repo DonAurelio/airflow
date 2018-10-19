@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  airflow:
+    build: ./airflow
+    restart: always
+    entrypoint: /home/scripts/entrypoint.sh
+    environment:
+      - AIRFLOW_HOME=/home/airflow
+    volumes:
+      - ./home/airflow:/home/airflow
+
+    # HOST:CONTAINER
+    # ports:
+      # flower service
+      # - 5555:5555
+      # airflow web server
+      # - 8080:8080
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=airflow
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=airflow
+      - RABBITMQ_DEFAULT_PASS=airflow
+      - RABBITMQ_DEFAULT_VHOST=airflow
+
+    # HOST:CONTAINER
+    # ports: 
+      # admin gui
+      # - 8020:15672
+      # queue 
+      # - 8021:5672
