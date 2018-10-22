@@ -1,5 +1,9 @@
 #!/bin/bash 
 
+echo "Running entrypoint"
+
+rm -rf /home/airflow/logs/*.err /home/airflow/logs/*.log /home/airflow/logs/*.pid
+
 # initialize the database
 airflow initdb
 

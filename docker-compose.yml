@@ -8,8 +8,10 @@ services:
     entrypoint: /home/scripts/entrypoint.sh
     environment:
       - AIRFLOW_HOME=/home/airflow
+      - C_FORCE_ROOT=true
     volumes:
       - ./home/airflow:/home/airflow
+      - ./airflow/entrypoint.sh:/home/scripts/entrypoint.sh
 
     # HOST:CONTAINER
     # ports:
@@ -40,3 +42,10 @@ services:
       # - 8020:15672
       # queue 
       # - 8021:5672
+
+
+  redis:
+    image: redis
+    expose:
+    - 6379
+
